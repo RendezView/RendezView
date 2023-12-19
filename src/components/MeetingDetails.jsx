@@ -1,27 +1,38 @@
 import React, { useState } from "react";
 import './style/MeetingDetails.css';
 
-const MeetingDetails = () => { // destruction onDefineMeeting from props here - { onDefineMeeting }
-    const [meetingName, setMeetingName] = useState('');
-    const [meetingDescription, setMeetingDescription] = useState('');
-    const [meetingLocation, setMeetingLocation] = useState('');
-    
-    function clickHandler() {
-        // put a function in main component to set these details inside some state up in that component, pass function down through props
-        // something like
-        // onDefineMeeting({meetingName, meetingDescription, meetingLocation});
-    }
+const MeetingDetails = ({ onDefineMeeting }) => {
+    const [localMeetingName, setLocalMeetingName] = useState('');
+    const [localMeetingDescription, setLocalMeetingDescription] = useState('');
+    const [localMeetingLocation, setLocalMeetingLocation] = useState('');
+
+    const clickHandler = () => {
+        onDefineMeeting(localMeetingName, localMeetingDescription, localMeetingLocation);
+        setLocalMeetingName('');
+        setLocalMeetingDescription('');
+        setLocalMeetingLocation('');
+    };
 
     return (
-        // flex display vertically on this div
         <div className="meeting-details-container">
             <h2>Meeting Details</h2>
             <label>Meeting Name:</label>
-            <input type="text" value={meetingName} onChange={(e) => setMeetingName(e.target.value)} />
+            <input 
+              type="text" 
+              value={localMeetingName} 
+              onChange={(e) => setLocalMeetingName(e.target.value)} 
+            />
             <label>Meeting Description:</label>
-            <textarea value={meetingDescription} onChange={(e) => setMeetingDescription(e.target.value)} />
+            <textarea 
+              value={localMeetingDescription} 
+              onChange={(e) => setLocalMeetingDescription(e.target.value)} 
+            />
             <label>Location:</label>
-            <input type="text" value={meetingLocation} onChange={(e) => setMeetingLocation(e.target.value)} />
+            <input 
+              type="text" 
+              value={localMeetingLocation} 
+              onChange={(e) => setLocalMeetingLocation(e.target.value)} 
+            />
             <button onClick={clickHandler}>Submit</button>
         </div>
     );

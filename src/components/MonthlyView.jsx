@@ -1,24 +1,30 @@
 import React from "react";
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import { LocalizationProvider, DateCalendar } from '@mui/x-date-pickers';
 import './style/MonthlyView.css';
 
-const MonthlyView = () => {
+const MonthlyView = ({ setStartDate, setEndDate, startDate, endDate }) => {
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div className="monthly-view-container">
         <h1 className="monthly-view-heading">Choose Meeting Dates</h1>
         <div className="monthly-view-calendar">
-          <DateCalendar />
+          <h2>Start Date</h2>
+          <DateCalendar value={startDate} onChange={setStartDate} />
+
+          <h2>End Date</h2>
+          <DateCalendar value={endDate} onChange={setEndDate} />
         </div>
+        <button className="submitBtn">Submit</button>
       </div>
-    </LocalizationProvider> 
+    </LocalizationProvider>
   );
 };
 
 export default MonthlyView;
+
 
 // import * as React from 'react';
 // import dayjs, { Dayjs } from 'dayjs';
