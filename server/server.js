@@ -10,6 +10,7 @@ const {
   updateEvent,
   deleteEvent,
   getEvent,
+  validateUniqueUrl,
 } = require('./controller');
 
 app.use(express.json());
@@ -19,15 +20,35 @@ app.use(express.json());
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, '..', 'build')));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+// if there is a custom url, serve the event page
+app.get('/event/:uniqueUrl', validateUniqueUrl, async (req, res, next) => {
+  try {
+    await getEvent(req, res, () => {
+      if (req.event) {
+        // Send a response that includes event data and a flag for the frontend
+        res.json({
+          customEvent: true,
+          eventData: req.event
+        });
+      } else {
+        // If no event data is attached, send a 404
+        res.status(404).send('Event not found');
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Event routes
 app.post('/events', createEvent);
-app.get('/events/:uniqueUrl', getEvent);
-app.put('/events/:uniqueUrl', updateEvent);
-app.delete('/events/:uniqueUrl', deleteEvent);
+app.put('/events/:uniqueUrl', validateUniqueUrl, updateEvent);
+app.delete('/events/:uniqueUrl', validateUniqueUrl, deleteEvent);
+
+// serves main site content for the root, defaults to creating event page
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+});
 
 // global error handler
 app.use((err, req, res, next) => {

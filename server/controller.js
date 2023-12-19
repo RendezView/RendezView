@@ -1,4 +1,5 @@
 const {Pool} = require('pg');
+const crypto = require('crypto');
 
 // Create a new pool instance
 const pool = new Pool({
@@ -8,6 +9,30 @@ const pool = new Pool({
   port: 'your_port',
   database: 'your_database',
 });
+
+// Middleware to validate unique URL
+const validateUniqueUrl = async (req, res, next) => {
+  const uniqueUrl = req.params.uniqueUrl;
+  const uniqueUrlPattern = /^[a-f0-9]{32}$/; // Regex for 32-char hex string
+
+  if (!uniqueUrlPattern.test(uniqueUrl)) {
+    return res.status(400).json({ message: 'Invalid unique URL format' });
+  }
+
+  try {
+    const query = 'SELECT 1 FROM events WHERE unique_url = $1';
+    const result = await pool.query(query, [uniqueUrl]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    next(); // Proceed to the next middleware if validation passes
+  } catch (error) {
+    error.log = 'Error in validateUniqueUrl middleware';
+    next(error);
+  }
+};
 
 // Middleware to create an event
 const createEvent = async (req, res, next) => {
@@ -50,6 +75,8 @@ const updateEvent = async (req, res, next) => {
   }
 };
 
+// Might need to add second updateEvent middleware for invitees
+
 // Middleware to delete an event by unique URL
 const deleteEvent = async (req, res, next) => {
   try {
@@ -77,10 +104,13 @@ const getEvent = async (req, res, next) => {
     const result = await pool.query(query, values);
 
     if (result.rows.length === 0) {
-      return res.status(404).json({message: 'Event not found'});
+      return res.status(404).json({ message: 'Event not found' });
     }
 
-    res.json(result.rows[0]);
+    const eventData = result.rows[0];
+    eventData.isCustomEvent = true; // This flag indicates a custom event for conditional rendering
+
+    res.json(eventData);
   } catch (error) {
     error.log = 'Error in getEventByUniqueUrl middleware';
     next(error);
@@ -93,4 +123,5 @@ module.exports = {
   updateEvent,
   deleteEvent,
   getEvent,
+  validateUniqueUrl
 };
