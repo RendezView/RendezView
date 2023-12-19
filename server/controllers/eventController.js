@@ -1,5 +1,5 @@
 const uuid = require('uuid');
-const db = require('../models/calendarModels');
+const db = require('../models/eventModels');
 
 const eventController = {};
 
