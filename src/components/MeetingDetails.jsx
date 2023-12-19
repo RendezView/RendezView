@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import './style/MeetingDetails.css';
 
 const MeetingDetails = ({ onDefineMeeting }) => {
+    const [localOrganizerName, setLocalOrganizerName] = useState('');
     const [localMeetingName, setLocalMeetingName] = useState('');
     const [localMeetingDescription, setLocalMeetingDescription] = useState('');
     const [localMeetingLocation, setLocalMeetingLocation] = useState('');
 
     const clickHandler = () => {
-        onDefineMeeting(localMeetingName, localMeetingDescription, localMeetingLocation);
+        onDefineMeeting(localOrganizerName, localMeetingName, localMeetingDescription, localMeetingLocation);
+        setLocalOrganizerName('');
         setLocalMeetingName('');
         setLocalMeetingDescription('');
         setLocalMeetingLocation('');
@@ -16,6 +18,12 @@ const MeetingDetails = ({ onDefineMeeting }) => {
     return (
         <div className="meeting-details-container">
             <h2>Meeting Details</h2>
+            <label>Organizer Name:</label>
+            <input 
+              type="text" 
+              value={localOrganizerName} 
+              onChange={(e) => setLocalOrganizerName(e.target.value)} 
+            />
             <label>Meeting Name:</label>
             <input 
               type="text" 
