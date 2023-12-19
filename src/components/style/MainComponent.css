@@ -1,3 +1,9 @@
+body {
+  background-image: url("../../../public/rendezview-bg.png");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
 .mainContainer {
     display: flex;
     justify-content: space-between;
