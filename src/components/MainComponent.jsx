@@ -3,6 +3,7 @@ import MonthlyView from './MonthlyView';
 import MeetingDetails from './MeetingDetails';
 import WeeklyView from './WeeklyView';
 import DisplayArea from "./DisplayArea";
+import './style/MainComponent.css'
 
 const MainComponent = () => {
     const [startDate, setStartDate] = useState(null);
@@ -19,25 +20,28 @@ const MainComponent = () => {
 
     return (
         <div className="mainContainer">
-            <MonthlyView setStartDate={setStartDate} setEndDate={setEndDate} startDate={startDate} endDate={endDate} />
-            <hr />
-            <MeetingDetails
-                onDefineMeeting={handleDefineMeeting}
-                meetingName={meetingName}
-                meetingDescription={meetingDescription}
-                meetingLocation={meetingLocation}
-                setMeetingName={setMeetingName}
-                setMeetingDescription={setMeetingDescription}
-                setMeetingLocation={setMeetingLocation}
-            />
-            <hr />
-            <WeeklyView startDate={startDate} endDate={endDate} />
-            <hr />
-            <DisplayArea 
-                meetingName={meetingName} 
-                meetingDescription={meetingDescription} 
-                meetingLocation={meetingLocation} 
-            />
+            <div className="leftContainer">
+                <MonthlyView setStartDate={setStartDate} setEndDate={setEndDate} startDate={startDate} endDate={endDate} />
+                <hr />
+                <MeetingDetails
+                    onDefineMeeting={handleDefineMeeting}
+                    meetingName={meetingName}
+                    meetingDescription={meetingDescription}
+                    meetingLocation={meetingLocation}
+                    setMeetingName={setMeetingName}
+                    setMeetingDescription={setMeetingDescription}
+                    setMeetingLocation={setMeetingLocation}
+                />
+                <hr />
+                <WeeklyView startDate={startDate} endDate={endDate} />
+            </div>
+            <div className="rightContainer">
+                <DisplayArea 
+                    meetingName={meetingName} 
+                    meetingDescription={meetingDescription} 
+                    meetingLocation={meetingLocation} 
+                />
+            </div>
         </div>
     )
 };
