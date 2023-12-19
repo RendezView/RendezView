@@ -1,0 +1,21 @@
+.monthly-view-container {
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  background-color: #ececec;
+  max-width: 400px;
+  text-align: center;
+}
+
+.monthly-view-heading {
+  font-size: 24px;
+  color: #142d4c;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.monthly-view-calendar {
+  display: flex;
+  justify-content: center;
+}
