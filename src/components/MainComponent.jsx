@@ -9,9 +9,18 @@ import "./style/MainComponent.css";
 const MainComponent = () => {
 
   const colors = [
-    '#FF5733', '#33FF57', '#3357FF', '#FFFF33', '#FF33FF',
-    '#8A2BE2', '#FF7F50', '#6495ED', '#DC143C', '#008B8B'
+    '#4169E1', // Royal Blue
+    '#FF0000', // Red
+    '#FFFF00', // Yellow
+    '#228B22', // Forest Green
+    '#800080', // Purple
+    '#FFC0CB', // Pink
+    '#808080', // Gray
+    '#87CEEB', // Sky Blue
+    '#32CD32', // Lime Green
+    '#FFA500'  // Orange
   ];
+
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [organizerName, setOrganizerName] = useState("");

@@ -10,6 +10,14 @@
     background-color: #f8f8f8;
     font-family: Arial, sans-serif;
   }
+
+  .user-input-container h2 {
+    color: #142d4c;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    width: 100%;
+    text-align: left;
+  }
   
   .user-input-container input[type="text"] {
     width: 90%;
