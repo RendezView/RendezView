@@ -5,8 +5,19 @@ import { LocalizationProvider, DateCalendar } from '@mui/x-date-pickers';
 import './style/MonthlyView.css';
 
 const MonthlyView = ({ setStartDate, setEndDate, startDate, endDate }) => {
-  console.log(startDate);
-  console.log(endDate);
+  // if(startDate){
+  //   console.log(startDate['$d'].toLocaleDateString('en-US'));
+  // }
+  // if(endDate){
+  //   console.log(endDate['$d'].toLocaleDateString('en-US'));
+  // }
+
+  const handleClick = () => {
+    console.log('Start Date: ', startDate['$d'].toLocaleDateString('en-US'));
+    console.log('End Date: ', endDate['$d'].toLocaleDateString('en-US'));
+    setStartDate(startDate);
+    setEndDate(endDate);
+  }
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -15,11 +26,10 @@ const MonthlyView = ({ setStartDate, setEndDate, startDate, endDate }) => {
         <div className="monthly-view-calendar">
           <h2>Start Date</h2>
           <DateCalendar value={startDate} onChange={setStartDate} />
-
           <h2>End Date</h2>
           <DateCalendar value={endDate} onChange={setEndDate} />
         </div>
-        <button className="submitBtn">Submit</button>
+        <button className="submitBtn" onClick={handleClick}>Submit</button>
       </div>
     </LocalizationProvider>
   );
