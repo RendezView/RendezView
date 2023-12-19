@@ -1,0 +1,71 @@
+.monthly-view-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  background-color: #ececec;
+  max-width: 800px;
+  text-align: center;
+}
+
+.monthly-view-heading {
+  font-size: 24px;
+  color: #142d4c;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.date-calendar-heading {
+  font-size: 20px;
+  color: #142d4c;
+  margin: 10px 0;
+}
+
+.monthly-view-calendar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.monthly-view-calendar button {
+  transition: 0.6s;
+}
+
+.monthly-view-calendar button:hover {
+  background-color: #9fd3c7;
+}
+
+@media (max-width: 768px) {
+  .monthly-view-container {
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .monthly-view-calendar {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.submitBtn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #9fd3c7;
+  color: #142d4c;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submitBtn:hover {
+  background-color: #385170;
+  color: white;
+  transform: scale(1.1);
+}

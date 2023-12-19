@@ -1,0 +1,15 @@
+.mainContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .leftContainer {
+    flex: 1;
+  }
+  
+  .rightContainer {
+    width: 400px;
+    position: sticky;
+    top: 60px;
+  }  
