@@ -1,0 +1,53 @@
+.weekly-view-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    background-color: #ececec;
+    max-width: 800px;
+    text-align: center;
+  }
+  
+  .weekly-view-heading {
+    font-size: 24px;
+    color: #142d4c;
+    margin-bottom: 30px;
+    font-weight: 600;
+  }
+  
+  .weekly-view-calendar {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (max-width: 768px) {
+    .weekly-view-container {
+      max-width: 100%;
+      padding: 20px;
+    }
+  }
+  
+  .weekly-view-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #9fd3c7;
+    color: #142d4c;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .weekly-view-button:hover {
+    background-color: #385170;
+    color: white;
+    transform: scale(1.1);
+  }
+  
