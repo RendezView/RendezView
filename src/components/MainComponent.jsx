@@ -4,9 +4,12 @@ import MeetingDetails from './MeetingDetails';
 import WeeklyView from './WeeklyView';
 
 const MainComponent = () => {
+
     return (
-        <div>
+        <div className="mainContainer">
             <MonthlyView />
+            <hr />
+            <MeetingDetails />
             {/* code goes here */}
         </div>
     )
