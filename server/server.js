@@ -32,6 +32,7 @@ app.get('/event/:uniqueUrl', validateUniqueUrl, async (req, res, next) => {
         });
       } else {
         // If no event data is attached, send a 404
+        // OR maybe redirect to main page with an alert?
         res.status(404).send('Event not found');
       }
     });

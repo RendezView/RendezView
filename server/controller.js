@@ -16,7 +16,7 @@ const validateUniqueUrl = async (req, res, next) => {
   const uniqueUrlPattern = /^[a-f0-9]{32}$/; // Regex for 32-char hex string
 
   if (!uniqueUrlPattern.test(uniqueUrl)) {
-    return res.status(400).json({ message: 'Invalid unique URL format' });
+    return res.status(400).json({message: 'Invalid unique URL format'});
   }
 
   try {
@@ -24,10 +24,9 @@ const validateUniqueUrl = async (req, res, next) => {
     const result = await pool.query(query, [uniqueUrl]);
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ message: 'Event not found' });
+      return res.status(404).json({message: 'Event not found'});
     }
-
-    next(); // Proceed to the next middleware if validation passes
+    return next();
   } catch (error) {
     error.log = 'Error in validateUniqueUrl middleware';
     next(error);
@@ -104,7 +103,7 @@ const getEvent = async (req, res, next) => {
     const result = await pool.query(query, values);
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ message: 'Event not found' });
+      return res.status(404).json({message: 'Event not found'});
     }
 
     const eventData = result.rows[0];
@@ -123,5 +122,5 @@ module.exports = {
   updateEvent,
   deleteEvent,
   getEvent,
-  validateUniqueUrl
+  validateUniqueUrl,
 };
