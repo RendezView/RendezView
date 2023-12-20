@@ -108,6 +108,7 @@ const MainComponent = () => {
               startDate={startDate} 
               endDate={endDate} 
               userColor={userColor}
+              userName={userName}
             />
           </div>
         ) : (

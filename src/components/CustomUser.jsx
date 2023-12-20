@@ -1,5 +1,10 @@
 import React from "react";
 import './style/CustomUser.css'
+import KD from '../soundfx/KD.mp3'
+import hankbob from '../soundfx/hankbob.mp3'
+import nancylast from '../soundfx/nancylast.mp3'
+import jake from '../soundfx/jake.m4a'
+import pedrohh from '../soundfx/pedrohh.m4a'
 
 const colors = [
     '#ececec', // Light Gray (Base: First Color)
@@ -14,7 +19,30 @@ const colors = [
     '#6a7b82'  // Medium Blue-Gray (Tint of Third Color)
   ];
 
+  const colorSounds = {
+    '#ececec': KD,
+    '#c7c7c7': hankbob,
+    '#9fd3c7': nancylast,
+    '#76b0a1': jake,
+    '#385170': pedrohh,
+    '#2c3f56': hankbob,
+    '#142d4c': hankbob,
+    '#0f2339': hankbob,
+    '#e3e7e8': hankbob,
+    '#6a7b82': hankbob
+  };
+
 const CustomUser = ({ userName, setUserName, userColor, setUserColor }) => {
+
+    const playSound = (color) => {
+        const sound = new Audio(colorSounds[color]);
+        sound.play();
+    };
+
+    const handleColorClick = (color) => {
+        setUserColor(color);
+        playSound(color);
+    };
 
     return (
         <div className="user-input-container">
@@ -26,17 +54,17 @@ const CustomUser = ({ userName, setUserName, userColor, setUserColor }) => {
             onChange={(e) => setUserName(e.target.value)}
             />
             <div className="color-selection">
-            {colors.map(color => (
-                <button
-                key={color}
-                className="color-circle"
-                style={{ backgroundColor: color }}
-                onClick={() => setUserColor(color)}
-                aria-label={`Select color ${color}`}
-                />
-            ))}
+                {colors.map(color => (
+                    <button
+                        key={color}
+                        className="color-circle"
+                        style={{ backgroundColor: color }}
+                        onClick={() => handleColorClick(color)}
+                        aria-label={`Select color ${color}`}
+                    />
+                ))}
             </div>
-      </div>
+        </div>
     );
 };
 
