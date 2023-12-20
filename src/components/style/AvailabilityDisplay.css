@@ -4,15 +4,15 @@
     padding: 15px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    background-color: #ececec;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     font-family: Arial, sans-serif;
     text-align: center;
 }
 
 .selected-ranges-display h3 {
     margin-bottom: 15px;
-    color: #333;
+    color: #142d4c;
     font-size: 18px;
 }
 
@@ -30,7 +30,7 @@
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     font-size: 14px;
-    color: #555;
+    color: #385170;
 }
 
 .selected-ranges-display li:last-child {
