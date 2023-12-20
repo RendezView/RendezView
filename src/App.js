@@ -32,7 +32,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route exact path="/" element={<MainComponent />} />
-          <Route path="/availability" element={<InviteeComponent />} />
+          <Route path="/availability/:link" element={<InviteeComponent />} />
         </Routes>
       </div>
     </Router>

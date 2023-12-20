@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';  
 import WeeklyView from './WeeklyView';
 import CustomUser from './CustomUser';
 import DisplayArea from './DisplayArea';
@@ -28,6 +29,30 @@ const InviteeComponent = () => {
   const [userColor, setUserColor] = useState(colors[0]);
   const [userName, setUserName] = useState("");
   const [generatedLink, setGeneratedLink] = useState(null);
+
+  const { link } = useParams();
+
+  // fetches data on component mount
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`/api/availability/${link}`); // Replace <link> with the actual link
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            // Update your state based on the fetched data
+            // Example:
+            // setStartDate(data.startDate);
+            // setEndDate(data.endDate);
+            // ... other state updates ...
+        } catch (error) {
+            console.error('Fetch error:', error);
+        }
+    };
+
+    fetchData();
+}, []); 
 
   return (
     <div className="mainContainer">
