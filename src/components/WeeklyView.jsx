@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { DayPilot, DayPilotCalendar } from "@daypilot/daypilot-lite-react";
 import './style/WeeklyView.css'
+import AvailabilityDisplay from "./AvailabilityDisplay";
 
-const WeeklyView = ({ startDate, endDate, userColor }) => {
+const WeeklyView = ({ startDate, endDate, userColor, userName }) => {
     const [localStartDate, setLocalStartDate] = useState(null);
     const [localEndDate, setLocalEndDate] = useState(null);
     const [selectedRanges, setSelectedRanges] = useState([]);
@@ -36,35 +37,26 @@ const WeeklyView = ({ startDate, endDate, userColor }) => {
     }, [localStartDate, localEndDate])
 
     const handleTimeRangeSelect = (args) => {
-      console.log('Time range selected: ', args.start, args.end);
-      setSelectedRanges(prevRanges => [...prevRanges, [args.start.value, args.end.value]]);
-      console.log('selectedRanges: ', selectedRanges);
-    }
-/*  const handleTimeRangeSelected = (args) => {
-    // Specify the color you want to use for the selected cells
-    const selectedColor = "lightblue";
-
-    // Update the properties of the selected cells
-    const updatedCells = {
-      start: args.start,
-      end: args.end,
-      backColor: selectedColor,
+      const rangeWithUser = {
+        start: args.start.value,
+        end: args.end.value,
+        userName: userName // Include the userName
     };
+      // console.log('Time range selected: ', args.start, args.end);
+      setSelectedRanges(prevRanges => [...prevRanges, rangeWithUser]);
+      // console.log('selectedRanges: ', selectedRanges);
+    }
 
-    // Save the selected range in state
-    setSelectedRange(updatedCells);
-
-    // Clear the selection after updating the cells
-    args.control.clearSelection();
-  };
-*/
     return (
-      <div className="weekly-view-container">
-        <h2 className="weekly-view-heading">Weekly Schedule</h2>
-        <div className="weekly-view-calendar">
-            <DayPilotCalendar {...config} onTimeRangeSelect={args => handleTimeRangeSelect(args)} />
+      <div>
+        <div className="weekly-view-container">
+          <h2 className="weekly-view-heading">Weekly Schedule</h2>
+          <div className="weekly-view-calendar">
+              <DayPilotCalendar {...config} onTimeRangeSelect={args => handleTimeRangeSelect(args)} />
+          </div>
+          <button className="submitBtn">Submit</button>
         </div>
-        <button className="submitBtn">Submit</button>
+        <AvailabilityDisplay selectedRanges={selectedRanges}/>
       </div>
     );
   };
