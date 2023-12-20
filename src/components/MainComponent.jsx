@@ -7,18 +7,17 @@ import CustomUser from "./CustomUser";
 import "./style/MainComponent.css";
 
 const MainComponent = () => {
-
   const colors = [
-    '#ececec', // Light Gray (Base: First Color)
-    '#c7c7c7', // Medium Gray (Tint of First Color)
-    '#9fd3c7', // Light Teal (Base: Second Color)
-    '#76b0a1', // Medium Teal (Shade of Second Color)
-    '#385170', // Dark Blue-Gray (Base: Third Color)
-    '#2c3f56', // Deeper Blue-Gray (Shade of Third Color)
-    '#142d4c', // Navy Blue (Base: Fourth Color)
-    '#0f2339', // Darker Navy (Shade of Fourth Color)
-    '#e3e7e8', // Lighter Gray (Tint of First Color)
-    '#6a7b82'  // Medium Blue-Gray (Tint of Third Color)
+    "#ececec", // Light Gray (Base: First Color)
+    "#c7c7c7", // Medium Gray (Tint of First Color)
+    "#9fd3c7", // Light Teal (Base: Second Color)
+    "#76b0a1", // Medium Teal (Shade of Second Color)
+    "#385170", // Dark Blue-Gray (Base: Third Color)
+    "#2c3f56", // Deeper Blue-Gray (Shade of Third Color)
+    "#142d4c", // Navy Blue (Base: Fourth Color)
+    "#0f2339", // Darker Navy (Shade of Fourth Color)
+    "#e3e7e8", // Lighter Gray (Tint of First Color)
+    "#6a7b82", // Medium Blue-Gray (Tint of Third Color)
   ];
 
   const [startDate, setStartDate] = useState(null);
@@ -29,6 +28,7 @@ const MainComponent = () => {
   const [meetingLocation, setMeetingLocation] = useState("");
   const [userColor, setUserColor] = useState(colors[0]);
   const [userName, setUserName] = useState("");
+  const [generatedLink, setGeneratedLink] = useState(null);
 
   const [showMonthlyView, setShowMonthlyView] = useState(true);
   const [showMeetingDetails, setShowMeetingDetails] = useState(true);
@@ -52,7 +52,7 @@ const MainComponent = () => {
         ▼
       </button>
     </div>
-  );  
+  );
 
   return (
     <div className="mainContainer">
@@ -68,13 +68,16 @@ const MainComponent = () => {
               startDate={startDate}
               endDate={endDate}
               onNextClick={toggleMonthlyView}
-              />
+            />
           </div>
         ) : (
-          <MinimalView title="Monthly View" toggleFunction={toggleMonthlyView} />
+          <MinimalView
+            title="Monthly View"
+            toggleFunction={toggleMonthlyView}
+          />
         )}
         <hr />
-  
+
         {showMeetingDetails ? (
           <div>
             <button className="toggle-button" onClick={toggleMeetingDetails}>
@@ -92,27 +95,32 @@ const MainComponent = () => {
               setMeetingLocation={setMeetingLocation}
               onNextClick={toggleMeetingDetails}
               readyForWeek={toggleWeeklyView}
-              />
+            />
           </div>
         ) : (
-          <MinimalView title="Meeting Details" toggleFunction={toggleMeetingDetails} />
+          <MinimalView
+            title="Meeting Details"
+            toggleFunction={toggleMeetingDetails}
+          />
         )}
         <hr />
-  
+
         {showWeeklyView ? (
           <div>
             <button className="toggle-button" onClick={toggleWeeklyView}>
               ▲ Weekly View
             </button>
             <WeeklyView
-              startDate={startDate} 
-              endDate={endDate} 
+              startDate={startDate}
+              endDate={endDate}
               userColor={userColor}
               userName={userName}
               organizerName={organizerName}
               meetingName={meetingName}
               meetingLocation={meetingLocation}
               meetingDescription={meetingDescription}
+              generatedLink={generatedLink}
+              setGeneratedLink={setGeneratedLink}
             />
           </div>
         ) : (
@@ -125,9 +133,10 @@ const MainComponent = () => {
           meetingName={meetingName}
           meetingDescription={meetingDescription}
           meetingLocation={meetingLocation}
+          generatedLink={generatedLink}
         />
         <hr />
-        <CustomUser 
+        <CustomUser
           userName={userName}
           setUserName={setUserName}
           userColor={userColor}
@@ -139,4 +148,3 @@ const MainComponent = () => {
 };
 
 export default MainComponent;
-

@@ -27,6 +27,7 @@ const findCommonTimeSlots = (eventDetails, userAvailabilities) => {
 const eventController = {};
 
 eventController.addEvent = async (req, res, next) => {
+  console.log("eventController.addEvent activated")
   try {
     const {
       organizer_name,

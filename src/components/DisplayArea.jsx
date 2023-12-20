@@ -1,7 +1,7 @@
 import React from "react";
 import './style/DisplayArea.css';
 
-const DisplayArea = ({ organizerName, meetingName, meetingDescription, meetingLocation }) => {
+const DisplayArea = ({ organizerName, meetingName, meetingDescription, meetingLocation, generatedLink }) => {
     return (
         <div className="meeting-details-display-container">
             <h2>Meeting Overview</h2>
@@ -20,6 +20,10 @@ const DisplayArea = ({ organizerName, meetingName, meetingDescription, meetingLo
             <div className="detail-row">
                 <strong>Location:</strong>
                 <p>{meetingLocation}</p>
+            </div>
+            <div className="detail-row">
+                <strong>Link:</strong>
+                <a aria-label="link to invitee component" href={generatedLink}>{generatedLink}</a>
             </div>
         </div>
     );
