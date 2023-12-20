@@ -75,4 +75,22 @@ eventController.addUserAvailability = async (req, res, next) => {
   }
 };
 
+// let's say we get this info:
+// user_name = Andy
+// event_id = event id
+// dates and time: 
+  // "[11/24 3:00pm-4:00pm, 7:00pm-9:30pm], [11/25 5:30pm-6:00pm, 9pm - 11pm]"
+
+// date table
+// date name
+// date id
+// user id
+// event id
+
+// time table
+// time name
+// date id
+// user id
+// event id
+
 module.exports = eventController;
