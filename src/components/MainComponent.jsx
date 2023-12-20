@@ -109,6 +109,10 @@ const MainComponent = () => {
               endDate={endDate} 
               userColor={userColor}
               userName={userName}
+              organizerName={organizerName}
+              meetingName={meetingName}
+              meetingLocation={meetingLocation}
+              meetingDescription={meetingDescription}
             />
           </div>
         ) : (

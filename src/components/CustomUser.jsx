@@ -5,6 +5,9 @@ import hankbob from '../soundfx/hankbob.mp3'
 import nancylast from '../soundfx/nancylast.mp3'
 import jake from '../soundfx/jake.m4a'
 import pedrohh from '../soundfx/pedrohh.m4a'
+import evan from '../soundfx/evan.m4a'
+import jordan from '../soundfx/Jordan.m4a'
+import connor from '../soundfx/connor.m4a'
 
 const colors = [
     '#ececec', // Light Gray (Base: First Color)
@@ -25,9 +28,9 @@ const colors = [
     '#9fd3c7': nancylast,
     '#76b0a1': jake,
     '#385170': pedrohh,
-    '#2c3f56': hankbob,
-    '#142d4c': hankbob,
-    '#0f2339': hankbob,
+    '#2c3f56': evan,
+    '#142d4c': jordan,
+    '#0f2339': connor,
     '#e3e7e8': hankbob,
     '#6a7b82': hankbob
   };
