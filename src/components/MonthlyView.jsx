@@ -4,7 +4,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider, DateCalendar } from '@mui/x-date-pickers';
 import './style/MonthlyView.css';
 
-const MonthlyView = ({ setStartDate, setEndDate, startDate, endDate }) => {
+const MonthlyView = ({ setStartDate, setEndDate, startDate, endDate, onNextClick }) => {
   // if(startDate){
   //   console.log(startDate['$d'].toLocaleDateString('en-US'));
   // }
@@ -17,6 +17,7 @@ const MonthlyView = ({ setStartDate, setEndDate, startDate, endDate }) => {
     console.log('End Date: ', endDate['$d'].toLocaleDateString('en-US'));
     setStartDate(startDate);
     setEndDate(endDate);
+    onNextClick();
   }
 
   return (
@@ -29,7 +30,7 @@ const MonthlyView = ({ setStartDate, setEndDate, startDate, endDate }) => {
           <h2>End Date</h2>
           <DateCalendar value={endDate} onChange={setEndDate} />
         </div>
-        <button className="submitBtn" onClick={handleClick}>Submit</button>
+        <button className="submitBtn" onClick={handleClick}>Next</button>
       </div>
     </LocalizationProvider>
   );

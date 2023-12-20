@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './style/MeetingDetails.css';
 
-const MeetingDetails = ({ onDefineMeeting }) => {
+const MeetingDetails = ({ onDefineMeeting, onNextClick, readyForWeek }) => {
     const [localOrganizerName, setLocalOrganizerName] = useState('');
     const [localMeetingName, setLocalMeetingName] = useState('');
     const [localMeetingDescription, setLocalMeetingDescription] = useState('');
@@ -13,6 +13,8 @@ const MeetingDetails = ({ onDefineMeeting }) => {
         setLocalMeetingName('');
         setLocalMeetingDescription('');
         setLocalMeetingLocation('');
+        onNextClick();
+        readyForWeek();
     };
 
     return (
@@ -41,7 +43,7 @@ const MeetingDetails = ({ onDefineMeeting }) => {
               value={localMeetingLocation} 
               onChange={(e) => setLocalMeetingLocation(e.target.value)} 
             />
-            <button onClick={clickHandler}>Submit</button>
+            <button onClick={clickHandler}>Next</button>
         </div>
     );
 };

@@ -2,16 +2,16 @@ import React from "react";
 import './style/CustomUser.css'
 
 const colors = [
-    '#4169E1', // Royal Blue
-    '#FF0000', // Red
-    '#FFFF00', // Yellow
-    '#228B22', // Forest Green
-    '#800080', // Purple
-    '#FFC0CB', // Pink
-    '#808080', // Gray
-    '#87CEEB', // Sky Blue
-    '#32CD32', // Lime Green
-    '#FFA500'  // Orange
+    '#ececec', // Light Gray (Base: First Color)
+    '#c7c7c7', // Medium Gray (Tint of First Color)
+    '#9fd3c7', // Light Teal (Base: Second Color)
+    '#76b0a1', // Medium Teal (Shade of Second Color)
+    '#385170', // Dark Blue-Gray (Base: Third Color)
+    '#2c3f56', // Deeper Blue-Gray (Shade of Third Color)
+    '#142d4c', // Navy Blue (Base: Fourth Color)
+    '#0f2339', // Darker Navy (Shade of Fourth Color)
+    '#e3e7e8', // Lighter Gray (Tint of First Color)
+    '#6a7b82'  // Medium Blue-Gray (Tint of Third Color)
   ];
 
 const CustomUser = ({ userName, setUserName, userColor, setUserColor }) => {
@@ -21,7 +21,7 @@ const CustomUser = ({ userName, setUserName, userColor, setUserColor }) => {
             <h2>Who the fuck are you and which fucking color do you want?</h2>
             <input 
             type="text" 
-            placeholder="Enter your name" 
+            placeholder="Who tf are you?" 
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
             />
