@@ -12,6 +12,11 @@ app.use(express.json());
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, '..', 'build')));
 
+app.get('/availability/:link', (req, res) => {
+  // send a flag to the frontend, to only conditionally render the weekly schedule and NOT the create event components
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+});
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
@@ -21,6 +26,8 @@ app.post('/', eventController.addEvent);
 app.get('/favicon.ico', (req, res) => {
   res.status(204);
 });
+
+app.post('/', eventController.addEvent);
 
 // global error handler // does the router
 app.use((err, req, res, next) => {

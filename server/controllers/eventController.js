@@ -14,10 +14,10 @@ eventController.addEvent = async (req, res, next) => {
       time,
     } = req.body;
 
-    const dateTimeString = `${date} ${time}`;
+    // const dateTimeString = `${date} ${time}`;
 
     const insertQuery = `
-      INSERT INTO events (organizer_name, meeting_name, meeting_description, location, event_time)
+      INSERT INTO events (organizer_name, meeting_name, meeting_description, location, date, time)
       VALUES ($1, $2, $3, $4, $5, TO_TIMESTAMP($6, 'YYYY-MM-DD HH24:MI:SS'))
       RETURNING event_id;
     `;
@@ -27,7 +27,9 @@ eventController.addEvent = async (req, res, next) => {
       meeting_name,
       meeting_description,
       location,
-      dateTimeString,
+      // dateTimeString,
+      date,
+      time,
     ]);
 
     const eventId = result.rows[0].event_id;
