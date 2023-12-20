@@ -53,12 +53,12 @@ const WeeklyView = ({ startDate, endDate, userColor, userName, organizerName, me
     const handleClick = async () => {
       const postData = {
         "eventDetails": {
+          "organizer_name": organizerName,
           "meeting_name": meetingName,
           "meeting_description": meetingDescription,
           "location": meetingLocation,
           "date_start": startDate['$d'].toJSON().split('T')[0],
           "date_end": endDate['$d'].toJSON().split('T')[0],
-          "organizer_name": organizerName,
       },
         "userAvailabilities": selectedRanges
     }
