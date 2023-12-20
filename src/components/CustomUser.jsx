@@ -4,6 +4,7 @@ import KD from '../soundfx/KD.mp3'
 import hankbob from '../soundfx/hankbob.mp3'
 import nancylast from '../soundfx/nancylast.mp3'
 import jake from '../soundfx/jake.m4a'
+import pedrohh from '../soundfx/pedrohh.m4a'
 
 const colors = [
     '#ececec', // Light Gray (Base: First Color)
@@ -23,7 +24,7 @@ const colors = [
     '#c7c7c7': hankbob,
     '#9fd3c7': nancylast,
     '#76b0a1': jake,
-    '#385170': hankbob,
+    '#385170': pedrohh,
     '#2c3f56': hankbob,
     '#142d4c': hankbob,
     '#0f2339': hankbob,
