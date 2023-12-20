@@ -5,6 +5,11 @@ import hankbob from '../soundfx/hankbob.mp3'
 import nancylast from '../soundfx/nancylast.mp3'
 import jake from '../soundfx/jake.m4a'
 import pedrohh from '../soundfx/pedrohh.m4a'
+import evan from '../soundfx/evan.m4a'
+import jordan from '../soundfx/Jordan.m4a'
+import connor from '../soundfx/connor.m4a'
+import jaime from '../soundfx/jaime.m4a'
+import chacta from '../soundfx/chacta.m4a'
 
 const colors = [
     '#ececec', // Light Gray (Base: First Color)
@@ -21,15 +26,15 @@ const colors = [
 
   const colorSounds = {
     '#ececec': KD,
-    '#c7c7c7': hankbob,
+    '#c7c7c7': hankbob, 
     '#9fd3c7': nancylast,
     '#76b0a1': jake,
     '#385170': pedrohh,
-    '#2c3f56': hankbob,
-    '#142d4c': hankbob,
-    '#0f2339': hankbob,
-    '#e3e7e8': hankbob,
-    '#6a7b82': hankbob
+    '#2c3f56': evan,
+    '#142d4c': jordan,
+    '#0f2339': connor,
+    '#e3e7e8': jaime,
+    '#6a7b82': chacta
   };
 
 const CustomUser = ({ userName, setUserName, userColor, setUserColor }) => {
