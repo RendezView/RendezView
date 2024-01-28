@@ -49,7 +49,6 @@ const InviteeComponent = () => {
           date_end
         } = data;
         console.log("fetch response: ", data);
-        console.log("weekly schedule: ", startDate, endDate);
         // Update your state based on the fetched data
         setStartDate(date_start);
         setEndDate(date_end);
