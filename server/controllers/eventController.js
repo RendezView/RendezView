@@ -118,15 +118,19 @@ eventController.getAvailabilityPage = async (req, res, next) => {
       return res.status(404).json({ error: 'Event not found' });
     }
 
-    // const userAvailabilityQuery = `
-    //         SELECT user_name, available_date, available_time_start, available_time_end
-    //         FROM users
-    //         WHERE event_id = $1;
-    //     `;
-    // const userAvailabilityResult = await db.query(userAvailabilityQuery, [
-    //   eventDetails.event_id,
-    // ]);
-    // const userAvailabilities = userAvailabilityResult.rows;
+    console.log('event id: ', eventDetails.event_id);
+
+    const userAvailabilityQuery = `
+            SELECT user_name, available_date, available_time_start, available_time_end
+            FROM users
+            WHERE event_id = $1;
+        `;
+    const userAvailabilityResult = await db.query(userAvailabilityQuery, [
+      eventDetails.event_id,
+    ]);
+    const userAvailabilities = userAvailabilityResult.rows;
+
+    console.log('user availabilities: ', userAvailabilities)
 
     // // Find overlapping time slots
     // const commonTimeSlots = findCommonTimeSlots(
@@ -134,15 +138,15 @@ eventController.getAvailabilityPage = async (req, res, next) => {
     //   userAvailabilities
     // );
 
-    // // Add the commonTimeSlots to the result
-    // const result = {
-    //   eventDetails,
-    //   userAvailabilities,
-    //   commonTimeSlots,
-    // };
+    // Add the commonTimeSlots to the result
+    const result = {
+      eventDetails,
+      userAvailabilities,
+      // commonTimeSlots,
+    };
 
     // res.status(200).json(result);
-    res.status(200).json(eventDetails);
+    res.status(200).json(result);
   } catch (error) {
     console.error('Error fetching availability data:', error);
     res.status(500).json({ error: 'Internal Server Error' });

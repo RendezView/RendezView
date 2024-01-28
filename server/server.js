@@ -20,8 +20,9 @@ app.get('/favicon.ico', (req, res) => {
 // API routes
 app.get('/api/availability/:link', eventController.getAvailabilityPage);
 // app.get('/availability/:eventUuid', eventController.getEventAvailability);
-app.post('/', eventController.addEvent);
 app.post('/api/availability/:eventUuid', eventController.addUserAvailability);
+app.post('/', eventController.addEvent);
+
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));

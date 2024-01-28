@@ -47,7 +47,7 @@ const InviteeComponent = () => {
           location,
           date_start,
           date_end
-        } = data;
+        } = data.eventDetails;
         console.log("fetch response: ", data);
         // Update your state based on the fetched data
         setStartDate(date_start);
