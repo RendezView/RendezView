@@ -44,25 +44,19 @@ const InviteeComponent = () => {
           organizer_name,
           meeting_name,
           meeting_description,
-          meeting_location,
+          location,
           date_start,
           date_end
         } = data;
         console.log("fetch response: ", data);
         console.log("weekly schedule: ", startDate, endDate);
         // Update your state based on the fetched data
-        // Example:
         setStartDate(date_start);
         setEndDate(date_end);
-        // ... other state updates ...
-
-
-
-
         setOrganizerName(organizer_name);
         setMeetingName(meeting_name);
         setMeetingDescription(meeting_description);
-        setMeetingLocation(meeting_location);
+        setMeetingLocation(location);
         setStartDate(date_start);
         setEndDate(date_end);
       } catch (error) {
