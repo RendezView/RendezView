@@ -46,7 +46,7 @@ const CustomUser = ({ userName, setUserName, userColor, setUserColor }) => {
 
     const handleColorClick = (color) => {
         setUserColor(color);
-        playSound(color);
+        // playSound(color);
     };
 
     return (

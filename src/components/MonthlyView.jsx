@@ -1,10 +1,16 @@
-import React from "react";
+import React from 'react';
 // import dayjs from 'dayjs';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider, DateCalendar } from '@mui/x-date-pickers';
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import {LocalizationProvider, DateCalendar} from '@mui/x-date-pickers';
 import './style/MonthlyView.css';
 
-const MonthlyView = ({ setStartDate, setEndDate, startDate, endDate, onNextClick }) => {
+const MonthlyView = ({
+  setStartDate,
+  setEndDate,
+  startDate,
+  endDate,
+  onNextClick,
+}) => {
   // if(startDate){
   //   console.log(startDate['$d'].toLocaleDateString('en-US'));
   // }
@@ -18,26 +24,27 @@ const MonthlyView = ({ setStartDate, setEndDate, startDate, endDate, onNextClick
     setStartDate(startDate);
     setEndDate(endDate);
     onNextClick();
-  }
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div className="monthly-view-container">
-        <h1 className="monthly-view-heading">Choose Meeting Dates</h1>
-        <div className="monthly-view-calendar">
+      <div className='monthly-view-container'>
+        <h1 className='monthly-view-heading'>Choose Meeting Dates</h1>
+        <div className='monthly-view-calendar'>
           <h2>Start Date</h2>
           <DateCalendar value={startDate} onChange={setStartDate} />
           <h2>End Date</h2>
           <DateCalendar value={endDate} onChange={setEndDate} />
         </div>
-        <button className="submitBtn" onClick={handleClick}>Next</button>
+        <button className='submitBtn' onClick={handleClick}>
+          Next
+        </button>
       </div>
     </LocalizationProvider>
   );
 };
 
 export default MonthlyView;
-
 
 // import * as React from 'react';
 // import dayjs, { Dayjs } from 'dayjs';
@@ -62,7 +69,6 @@ export default MonthlyView;
 //     </LocalizationProvider>
 //   );
 // }
-
 
 /* Multiple date picker
 import * as React from "react";
