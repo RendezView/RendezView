@@ -16,10 +16,40 @@ const WeeklyView = ({
   setGeneratedLink,
   eventId,
   isOrganizer,
+  userAvailabilities
 }) => {
-  const [selectedRanges, setSelectedRanges] = useState([]);
+  
   // const [generatedLink, setGeneratedLink] = useState(null);
   const calendarRef = useRef(null); // Create a ref for the calendar
+
+  const [selectedRanges, setSelectedRanges] = useState([]);
+  useEffect(() => {
+    if (userAvailabilities && userAvailabilities.length > 0) {
+      const formattedAvailabilities = userAvailabilities.map(availability => {
+        // Extract the date part from the available_date
+        const datePart = availability.available_date.split('T')[0];
+  
+        // Combine date part with the time parts to create ISO strings
+        const startISO = `${datePart}T${availability.available_time_start}.000Z`;
+        const endISO = `${datePart}T${availability.available_time_end}.000Z`;
+  
+        return {
+          start: startISO,
+          end: endISO,
+          // id: DayPilot.guid(), // Generate a new id for each availability
+          text: availability.text,
+          backColor: availability.back_color,
+          userName: availability.user_name,
+        };
+      });
+      setSelectedRanges(formattedAvailabilities);
+    }
+  }, [userAvailabilities]);
+
+  useEffect(() => {
+    console.log("selected ranges: ", selectedRanges);
+  }, [selectedRanges])
+  
 
   // Memoize the config object to prevent unnecessary re-renders
   const config = useMemo(() => {

@@ -29,6 +29,7 @@ const InviteeComponent = () => {
   const [userName, setUserName] = useState('');
   const [generatedLink, setGeneratedLink] = useState(null);
   const [eventId, setEventId] = useState('')
+  const [userAvailabilities, setUserAvailabilities] = useState([]);
 
   const {link} = useParams();
 
@@ -61,6 +62,7 @@ const InviteeComponent = () => {
         setStartDate(date_start);
         setEndDate(date_end);
         setEventId(event_id);
+        setUserAvailabilities(data.userAvailabilities)
       } catch (error) {
         console.error('Fetch error:', error);
       }
@@ -86,6 +88,7 @@ const InviteeComponent = () => {
             setGeneratedLink={setGeneratedLink}
             eventId={eventId}
             isOrganizer={false}
+            userAvailabilities={userAvailabilities}
           />
         </div>
       </div>

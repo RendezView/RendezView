@@ -173,7 +173,7 @@ eventController.getAvailabilityPage = async (req, res, next) => {
     console.log('event id: ', eventDetails.event_id);
 
     const userAvailabilityQuery = `
-            SELECT user_name, available_date, available_time_start, available_time_end
+            SELECT user_name, available_date, available_time_start, available_time_end, back_color, text
             FROM users
             WHERE event_id = $1;
         `;
