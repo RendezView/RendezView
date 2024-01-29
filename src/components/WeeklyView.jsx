@@ -21,17 +21,26 @@ const WeeklyView = ({
   const calendarRef = useRef(null); // Create a ref for the calendar
   const [selectedRanges, setSelectedRanges] = useState([]);
   const [newAvailabilities, setNewAvailabilities] = useState([]); // State for new availabilities
+  const [userTimeZone, setUserTimeZone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
 
   useEffect(() => {
     if (userAvailabilities && userAvailabilities.length > 0) {
       const formattedAvailabilities = userAvailabilities.map(availability => {
-        // Parse the ISO string and then create a DayPilot.Date object with the local time
-        const start = new DayPilot.Date(new Date(availability.available_time_start).toISOString(), true);
-        const end = new DayPilot.Date(new Date(availability.available_time_end).toISOString(), true);
+        // Convert UTC time to user's local time zone
+        const localStartTime = new Date(availability.available_time_start).toLocaleString('en-US', { timeZone: userTimeZone });
+        const localEndTime = new Date(availability.available_time_end).toLocaleString('en-US', { timeZone: userTimeZone });
+  
+        // Parse the local time and format it
+        const parsedStartTime = new Date(localStartTime);
+        const parsedEndTime = new Date(localEndTime);
+
+        // formatting time to be like this "yyyy-MM-ddTHH:mm:ss" for dayPilot
+        const formattedStart = `${parsedStartTime.getFullYear()}-${String(parsedStartTime.getMonth() + 1).padStart(2, '0')}-${String(parsedStartTime.getDate()).padStart(2, '0')}T${String(parsedStartTime.getHours()).padStart(2, '0')}:${String(parsedStartTime.getMinutes()).padStart(2, '0')}:${String(parsedStartTime.getSeconds()).padStart(2, '0')}`;
+        const formattedEnd = `${parsedEndTime.getFullYear()}-${String(parsedEndTime.getMonth() + 1).padStart(2, '0')}-${String(parsedEndTime.getDate()).padStart(2, '0')}T${String(parsedEndTime.getHours()).padStart(2, '0')}:${String(parsedEndTime.getMinutes()).padStart(2, '0')}:${String(parsedEndTime.getSeconds()).padStart(2, '0')}`;
   
         return {
-          start: start.toString(), // Convert to DayPilot.Date and then to ISO string with local time
-          end: end.toString(),     // Convert to DayPilot.Date and then to ISO string with local time
+          start: formattedStart,
+          end: formattedEnd,
           text: availability.text,
           backColor: availability.back_color,
           userName: availability.user_name,
@@ -39,7 +48,7 @@ const WeeklyView = ({
       });
       setSelectedRanges(formattedAvailabilities);
     }
-  }, [userAvailabilities]);
+  }, [userAvailabilities, userTimeZone]);
 
   useEffect(() => {
     console.log("selected ranges: ", selectedRanges);
