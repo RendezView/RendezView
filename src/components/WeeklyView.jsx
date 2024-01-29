@@ -99,8 +99,10 @@ const WeeklyView = ({
           meeting_name: meetingName,
           meeting_description: meetingDescription,
           location: meetingLocation,
-          date_start: startDate ? new DayPilot.Date(startDate).toString(): null,
-          date_end: endDate ? new DayPilot.Date(endDate).toString() : null,
+          // date_start: startDate ? new DayPilot.Date(startDate).toString(): null,
+          // date_end: endDate ? new DayPilot.Date(endDate).toString() : null,
+          date_start: startDate['$d'].toJSON().split('T')[0], // "2023-12-20"
+          date_end: endDate['$d'].toJSON().split('T')[0],
           time_start: '00:00:00',
           time_end: '23:59:59',
           userAvailabilities: selectedRanges,
