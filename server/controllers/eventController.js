@@ -121,28 +121,30 @@ eventController.addUserAvailability = async (req, res, next) => {
         .json({error: 'Invalid user availabilities format'});
     }
 
-    // full query
-        const insertQuery = `
-        INSERT INTO users (user_name, event_id, available_date, available_time_start, available_time_end, back_color, text)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
+    // took out available_date
+    const insertQuery = `
+        INSERT INTO users (user_name, event_id, available_time_start, available_time_end, back_color, text)
+        VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING user_id;
     `;
 
     for (const availability of userAvailabilities) {
       const startDate = new Date(availability.start);
       const endDate = new Date(availability.end);
-      const availableDate = startDate.toISOString().split('T')[0]; // Extracting date part
-      const availableTimeStart = startDate.toISOString().split('T')[1];
-      const availableTimeEnd = endDate.toISOString().split('T')[1];
+      // const availableDate = startDate.toISOString().split('T')[0];
+      // const availableTimeStart = startDate.toISOString().split('T')[1];
+      // const availableTimeEnd = endDate.toISOString().split('T')[1];
+      const availableTimeStart = startDate.toISOString();
+      const availableTimeEnd = endDate.toISOString();
 
       const result = await db.query(insertQuery, [
         availability.userName,
         event_id,
-        availableDate,
+        // availableDate,
         availableTimeStart,
         availableTimeEnd,
         availability.backColor,
-        availability.text
+        availability.text,
       ]);
 
       const {user_id} = result.rows[0];
@@ -173,7 +175,7 @@ eventController.getAvailabilityPage = async (req, res, next) => {
     console.log('event id: ', eventDetails.event_id);
 
     const userAvailabilityQuery = `
-            SELECT user_name, available_date, available_time_start, available_time_end, back_color, text
+            SELECT user_name, available_time_start, available_time_end, back_color, text
             FROM users
             WHERE event_id = $1;
         `;

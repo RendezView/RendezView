@@ -25,13 +25,9 @@ const WeeklyView = ({
   useEffect(() => {
     if (userAvailabilities && userAvailabilities.length > 0) {
       const formattedAvailabilities = userAvailabilities.map(availability => {
-        const datePart = availability.available_date.split('T')[0];
-        const startISO = `${datePart}T${availability.available_time_start}.000Z`;
-        const endISO = `${datePart}T${availability.available_time_end}.000Z`;
-  
         return {
-          start: startISO,
-          end: endISO,
+          start: new Date(availability.available_time_start), // convert to local time
+          end: new Date(availability.available_time_end),
           text: availability.text,
           backColor: availability.back_color,
           userName: availability.user_name,
