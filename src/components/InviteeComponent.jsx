@@ -28,6 +28,7 @@ const InviteeComponent = () => {
   const [userColor, setUserColor] = useState(colors[0]);
   const [userName, setUserName] = useState('');
   const [generatedLink, setGeneratedLink] = useState(null);
+  const [eventId, setEventId] = useState('')
 
   const {link} = useParams();
 
@@ -46,7 +47,8 @@ const InviteeComponent = () => {
           meeting_description,
           location,
           date_start,
-          date_end
+          date_end,
+          event_id,
         } = data.eventDetails;
         console.log("fetch response: ", data);
         // Update your state based on the fetched data
@@ -58,6 +60,7 @@ const InviteeComponent = () => {
         setMeetingLocation(location);
         setStartDate(date_start);
         setEndDate(date_end);
+        setEventId(event_id);
       } catch (error) {
         console.error('Fetch error:', error);
       }
@@ -81,6 +84,8 @@ const InviteeComponent = () => {
             meetingDescription={meetingDescription}
             generatedLink={generatedLink}
             setGeneratedLink={setGeneratedLink}
+            eventId={eventId}
+            isOrganizer={false}
           />
         </div>
       </div>

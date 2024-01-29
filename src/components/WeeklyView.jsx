@@ -14,6 +14,8 @@ const WeeklyView = ({
   meetingDescription,
   generatedLink,
   setGeneratedLink,
+  eventId,
+  isOrganizer,
 }) => {
   const [selectedRanges, setSelectedRanges] = useState([]);
   // const [generatedLink, setGeneratedLink] = useState(null);
@@ -71,22 +73,28 @@ const WeeklyView = ({
   // meeting name, meeting desc, location, start date, end date, organizer name
   // username, avail date, avail start, avail end
   const handleClick = async () => {
-    const postData = {
-      organizer_name: organizerName,
-      meeting_name: meetingName,
-      meeting_description: meetingDescription,
-      location: meetingLocation,
-      date_start: startDate
-      ? new Date(startDate).toISOString().split('T')[0]
-      : null,
-      date_end: endDate
-      ? new Date(endDate).toISOString().split('T')[0]
-      : null,
-      time_start: '00:00:00',
-      time_end: '23:59:59',
-      userAvailabilities: selectedRanges
-    };
-    // "userAvailabilities": selectedRanges
+    const postData = isOrganizer
+      ? {
+          organizer_name: organizerName,
+          meeting_name: meetingName,
+          meeting_description: meetingDescription,
+          location: meetingLocation,
+          date_start: startDate
+            ? new Date(startDate).toISOString().split('T')[0]
+            : null,
+          date_end: endDate
+            ? new Date(endDate).toISOString().split('T')[0]
+            : null,
+          time_start: '00:00:00',
+          time_end: '23:59:59',
+          userAvailabilities: selectedRanges,
+        }
+      : {
+          event_id: eventId,
+          userAvailabilities: selectedRanges,
+        };
+
+    const route = isOrganizer ? '/api/newEvent' : '/api/availability/:link';
 
     //   const postData = {
     //     "eventDetails": {
@@ -103,18 +111,19 @@ const WeeklyView = ({
     // }
 
     try {
-      const response = await fetch('/', {
+      const response = await fetch(route, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(postData),
       });
       if (response.ok) {
         const result = await response.json();
-        console.log('result: ', result);
-        const formattedLink = `http://localhost:5001/availability/${result.link}`;
-        setGeneratedLink(formattedLink);
+        if (isOrganizer) {
+          const formattedLink = `http://localhost:5001/availability/${result.link}`;
+          setGeneratedLink(formattedLink);
+        }
         console.log('Success: Request Complete', result);
-        console.log('Link: ', generatedLink); // promise hasn't fulfilled yet
+        // console.log('Link: ', generatedLink); // promise hasn't fulfilled yet
       } else {
         console.log('Error: Request Failed');
       }

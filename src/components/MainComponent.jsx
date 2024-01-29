@@ -121,6 +121,7 @@ const MainComponent = () => {
               meetingDescription={meetingDescription}
               generatedLink={generatedLink}
               setGeneratedLink={setGeneratedLink}
+              isOrganizer={true}
             />
           </div>
         ) : (

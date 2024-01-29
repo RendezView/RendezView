@@ -20,8 +20,8 @@ app.get('/favicon.ico', (req, res) => {
 // API routes
 app.get('/api/availability/:link', eventController.getAvailabilityPage);
 // app.get('/availability/:eventUuid', eventController.getEventAvailability);
-app.post('/api/availability/:eventUuid', eventController.addUserAvailability);
-app.post('/', eventController.addEvent);
+app.post('/api/availability/:link', eventController.addUserAvailability);
+app.post('/api/newEvent', eventController.addEvent, eventController.addUserAvailability);
 
 
 app.get('*', (req, res) => {
