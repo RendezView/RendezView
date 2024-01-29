@@ -68,6 +68,46 @@ eventController.addEvent = async (req, res, next) => {
 
     console.log('Event added successfully. Link:', generatedLink);
 
+    // manually inserted the add user middleware into here. probably better to separate in the future:
+    console.log('eventController.addUserAvailability activated');
+    console.log('req.body', req.body);
+
+    if (!userAvailabilities || !Array.isArray(userAvailabilities)) {
+      return res
+        .status(400)
+        .json({error: 'Invalid user availabilities format'});
+    }
+
+    // took out available_date
+    const userInsertQuery = `
+        INSERT INTO users (user_name, event_id, available_time_start, available_time_end, back_color, text)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING user_id;
+    `;
+
+    for (const availability of userAvailabilities) {
+      const startDate = new Date(availability.start);
+      const endDate = new Date(availability.end);
+      // const availableDate = startDate.toISOString().split('T')[0];
+      // const availableTimeStart = startDate.toISOString().split('T')[1];
+      // const availableTimeEnd = endDate.toISOString().split('T')[1];
+      const availableTimeStart = startDate.toISOString();
+      const availableTimeEnd = endDate.toISOString();
+
+      const result = await db.query(userInsertQuery, [
+        availability.userName,
+        event_id,
+        // availableDate,
+        availableTimeStart,
+        availableTimeEnd,
+        availability.backColor,
+        availability.text,
+      ]);
+
+      const {user_id} = result.rows[0];
+      console.log(`User availability added successfully for user ${user_id}`);
+    }
+
     res.status(201).json({event_id, link: generatedLink});
   } catch (error) {
     console.error('Error adding event:', error);

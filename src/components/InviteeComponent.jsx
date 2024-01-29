@@ -98,7 +98,7 @@ const InviteeComponent = () => {
           meetingName={meetingName}
           meetingDescription={meetingDescription}
           meetingLocation={meetingLocation}
-          generatedLink={link}
+          generatedLink={link} // change this when site is hosted
         />
         <hr />
         <CustomUser
