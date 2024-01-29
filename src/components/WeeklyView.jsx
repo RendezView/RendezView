@@ -25,9 +25,13 @@ const WeeklyView = ({
   useEffect(() => {
     if (userAvailabilities && userAvailabilities.length > 0) {
       const formattedAvailabilities = userAvailabilities.map(availability => {
+        // Parse the ISO string and then create a DayPilot.Date object with the local time
+        const start = new DayPilot.Date(new Date(availability.available_time_start).toISOString(), true);
+        const end = new DayPilot.Date(new Date(availability.available_time_end).toISOString(), true);
+  
         return {
-          start: new Date(availability.available_time_start), // convert to local time
-          end: new Date(availability.available_time_end),
+          start: start.toString(), // Convert to DayPilot.Date and then to ISO string with local time
+          end: end.toString(),     // Convert to DayPilot.Date and then to ISO string with local time
           text: availability.text,
           backColor: availability.back_color,
           userName: availability.user_name,
@@ -49,11 +53,11 @@ const WeeklyView = ({
     return {
       viewType: 'Days',
       days: days,
-      startDate: localStartDate,
+      startDate: new DayPilot.Date(localStartDate).toString(),
       onTimeRangeSelected: (args) => {
         const rangeWithUser = {
-          start: args.start.value,
-          end: args.end.value,
+          start: new DayPilot.Date(args.start.value, true).toString(),
+          end: new DayPilot.Date(args.end.value, true).toString(),
           id: DayPilot.guid(),
           text: 'Selected',
           backColor: userColor,
@@ -86,8 +90,8 @@ const WeeklyView = ({
           meeting_name: meetingName,
           meeting_description: meetingDescription,
           location: meetingLocation,
-          date_start: startDate ? new Date(startDate).toISOString().split('T')[0] : null,
-          date_end: endDate ? new Date(endDate).toISOString().split('T')[0] : null,
+          date_start: startDate ? new DayPilot.Date(startDate).toString(): null,
+          date_end: endDate ? new DayPilot.Date(endDate).toString() : null,
           time_start: '00:00:00',
           time_end: '23:59:59',
           userAvailabilities: selectedRanges,
