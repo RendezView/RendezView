@@ -93,6 +93,7 @@ const WeeklyView = ({
   }, [selectedRanges]);
 
   const handleClick = async () => {
+    if(!startDate || !endDate) return;
     const postData = isOrganizer
       ? {
           organizer_name: organizerName,
@@ -140,7 +141,7 @@ const WeeklyView = ({
         <div className='weekly-view-calendar'>
           <DayPilotCalendar {...config} ref={calendarRef} />
         </div>
-        <button onClick={handleClick} className='submitBtn'>
+        <button onClick={handleClick} className='weekly-view-button'>
           Submit
         </button>
       </div>

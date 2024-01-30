@@ -19,6 +19,7 @@ const MonthlyView = ({
   // }
 
   const handleClick = () => {
+    if(!startDate || !endDate) return;
     console.log('Start Date: ', startDate['$d'].toLocaleDateString('en-US'));
     console.log('End Date: ', endDate['$d'].toLocaleDateString('en-US'));
     setStartDate(startDate);
@@ -36,7 +37,7 @@ const MonthlyView = ({
           <h2>End Date</h2>
           <DateCalendar value={endDate} onChange={setEndDate} />
         </div>
-        <button className='submitBtn' onClick={handleClick}>
+        <button className='monthly-view-button' onClick={handleClick}>
           Next
         </button>
       </div>
