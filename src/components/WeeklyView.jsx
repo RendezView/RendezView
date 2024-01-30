@@ -93,6 +93,7 @@ const WeeklyView = ({
   }, [selectedRanges]);
 
   const handleClick = async () => {
+    if(!startDate || !endDate) return;
     const postData = isOrganizer
       ? {
           organizer_name: organizerName,
@@ -133,6 +134,13 @@ const WeeklyView = ({
     }
   };
 
+  // deletes time ranges, but doesn't directly affect database
+    // this means after deleting a time range, the host will have to resubmit and get a fresh link i think
+  const handleDeleteRange = (index) => {
+    const updatedRanges = selectedRanges.filter((_, i) => i !== index);
+    setSelectedRanges(updatedRanges);
+  };  
+
   return (
     <div>
       <div className='weekly-view-container'>
@@ -140,11 +148,11 @@ const WeeklyView = ({
         <div className='weekly-view-calendar'>
           <DayPilotCalendar {...config} ref={calendarRef} />
         </div>
-        <button onClick={handleClick} className='submitBtn'>
+        <button onClick={handleClick} className='weekly-view-button'>
           Submit
         </button>
       </div>
-      <AvailabilityDisplay selectedRanges={selectedRanges} />
+      <AvailabilityDisplay selectedRanges={selectedRanges} onDelete={handleDeleteRange} />
     </div>
   );
 };

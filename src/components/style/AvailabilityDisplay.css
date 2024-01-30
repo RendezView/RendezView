@@ -24,6 +24,9 @@
 }
 
 .selected-ranges-display li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 10px;
     padding: 8px;
     background-color: #ffffff;
@@ -33,6 +36,22 @@
     color: #385170;
 }
 
-.selected-ranges-display li:last-child {
-    margin-bottom: 0;
+.range-details {
+    text-align: left;
+}
+
+.delete-range-button {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    transition: background-color 0.3s;
+}
+
+.delete-range-button:hover {
+    background-color: #e53e3e;
 }
