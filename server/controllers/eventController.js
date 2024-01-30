@@ -27,7 +27,7 @@ const findCommonTimeSlots = (eventDetails, userAvailabilities) => {
 const eventController = {};
 
 eventController.addEvent = async (req, res, next) => {
-  console.log("eventController.addEvent activated")
+  console.log('eventController.addEvent activated');
   try {
     const {
       organizer_name,
@@ -38,7 +38,10 @@ eventController.addEvent = async (req, res, next) => {
       date_end,
       time_start,
       time_end,
+      userAvailabilities,
     } = req.body;
+
+    console.log('user availabilities: ', userAvailabilities);
 
     // Generate a UUID for the link field
     const link = uuid.v4();
@@ -61,47 +64,139 @@ eventController.addEvent = async (req, res, next) => {
       link, // Pass the generated link to the query
     ]);
 
-    const { event_id, link: generatedLink } = result.rows[0];
+    const {event_id, link: generatedLink} = result.rows[0];
 
     console.log('Event added successfully. Link:', generatedLink);
-    res.status(201).json({ event_id, link: generatedLink });
+
+    // manually inserted the add user middleware into here. probably better to separate in the future:
+    console.log('eventController.addUserAvailability activated');
+    console.log('req.body', req.body);
+
+    if (!userAvailabilities || !Array.isArray(userAvailabilities)) {
+      return res
+        .status(400)
+        .json({error: 'Invalid user availabilities format'});
+    }
+
+    // took out available_date
+    const userInsertQuery = `
+        INSERT INTO users (user_name, event_id, available_time_start, available_time_end, back_color, text)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING user_id;
+    `;
+
+    for (const availability of userAvailabilities) {
+      const startDate = new Date(availability.start);
+      const endDate = new Date(availability.end);
+      // const availableDate = startDate.toISOString().split('T')[0];
+      // const availableTimeStart = startDate.toISOString().split('T')[1];
+      // const availableTimeEnd = endDate.toISOString().split('T')[1];
+      const availableTimeStart = startDate.toISOString();
+      const availableTimeEnd = endDate.toISOString();
+
+      const result = await db.query(userInsertQuery, [
+        availability.userName,
+        event_id,
+        // availableDate,
+        availableTimeStart,
+        availableTimeEnd,
+        availability.backColor,
+        availability.text,
+      ]);
+
+      const {user_id} = result.rows[0];
+      console.log(`User availability added successfully for user ${user_id}`);
+    }
+
+    res.status(201).json({event_id, link: generatedLink});
   } catch (error) {
     console.error('Error adding event:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({error: 'Internal Server Error'});
   }
 };
 
+// eventController.addUserAvailability = async (req, res, next) => {
+//   try {
+//     const {
+//       user_name,
+//       event_id,
+//       available_date,
+//       available_time_start,
+//       available_time_end,
+//     } = req.body;
+
+//     const insertQuery = `
+//             INSERT INTO users (user_name, event_id, available_date, available_time_start, available_time_end)
+//             VALUES ($1, $2, $3, $4, $5)
+//             RETURNING user_id;
+//         `;
+
+//     const result = await db.query(insertQuery, [
+//       user_name,
+//       event_id,
+//       available_date,
+//       available_time_start,
+//       available_time_end,
+//     ]);
+
+//     const { user_id } = result.rows[0];
+
+//     console.log('User availability added successfully');
+//     res.status(201).json({ user_id });
+//   } catch (error) {
+//     console.error('Error adding user availability:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// };
+
 eventController.addUserAvailability = async (req, res, next) => {
   try {
-    const {
-      user_name,
-      event_id,
-      available_date,
-      available_time_start,
-      available_time_end,
-    } = req.body;
+    console.log('eventController.addUserAvailability activated');
+    console.log('req.body', req.body);
+    const {userAvailabilities, event_id} = req.body;
 
+    if (!userAvailabilities || !Array.isArray(userAvailabilities)) {
+      return res
+        .status(400)
+        .json({error: 'Invalid user availabilities format'});
+    }
+
+    // took out available_date
     const insertQuery = `
-            INSERT INTO users (user_name, event_id, available_date, available_time_start, available_time_end)
-            VALUES ($1, $2, $3, $4, $5)
-            RETURNING user_id;
-        `;
+        INSERT INTO users (user_name, event_id, available_time_start, available_time_end, back_color, text)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING user_id;
+    `;
 
-    const result = await db.query(insertQuery, [
-      user_name,
-      event_id,
-      available_date,
-      available_time_start,
-      available_time_end,
-    ]);
+    for (const availability of userAvailabilities) {
+      const startDate = new Date(availability.start);
+      const endDate = new Date(availability.end);
+      // const availableDate = startDate.toISOString().split('T')[0];
+      // const availableTimeStart = startDate.toISOString().split('T')[1];
+      // const availableTimeEnd = endDate.toISOString().split('T')[1];
+      const availableTimeStart = startDate.toISOString();
+      const availableTimeEnd = endDate.toISOString();
 
-    const { user_id } = result.rows[0];
+      const result = await db.query(insertQuery, [
+        availability.userName,
+        event_id,
+        // availableDate,
+        availableTimeStart,
+        availableTimeEnd,
+        availability.backColor,
+        availability.text,
+      ]);
 
-    console.log('User availability added successfully');
-    res.status(201).json({ user_id });
+      const {user_id} = result.rows[0];
+      console.log(`User availability added successfully for user ${user_id}`);
+    }
+
+    res
+      .status(201)
+      .json({message: 'All user availabilities added successfully'});
   } catch (error) {
-    console.error('Error adding user availability:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Error adding user availabilities:', error);
+    res.status(500).json({error: 'Internal Server Error'});
   }
 };
 
@@ -114,11 +209,13 @@ eventController.getAvailabilityPage = async (req, res, next) => {
 
     // check if event exists
     if (!eventDetails) {
-      return res.status(404).json({ error: 'Event not found' });
+      return res.status(404).json({error: 'Event not found'});
     }
 
+    console.log('event id: ', eventDetails.event_id);
+
     const userAvailabilityQuery = `
-            SELECT user_name, available_date, available_time_start, available_time_end
+            SELECT user_name, available_time_start, available_time_end, back_color, text
             FROM users
             WHERE event_id = $1;
         `;
@@ -127,23 +224,26 @@ eventController.getAvailabilityPage = async (req, res, next) => {
     ]);
     const userAvailabilities = userAvailabilityResult.rows;
 
-    // Find overlapping time slots
-    const commonTimeSlots = findCommonTimeSlots(
-      eventDetails,
-      userAvailabilities
-    );
+    console.log('user availabilities: ', userAvailabilities);
+
+    // // Find overlapping time slots
+    // const commonTimeSlots = findCommonTimeSlots(
+    //   eventDetails,
+    //   userAvailabilities
+    // );
 
     // Add the commonTimeSlots to the result
     const result = {
       eventDetails,
       userAvailabilities,
-      commonTimeSlots,
+      // commonTimeSlots,
     };
 
+    // res.status(200).json(result);
     res.status(200).json(result);
   } catch (error) {
     console.error('Error fetching availability data:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({error: 'Internal Server Error'});
   }
 };
 
