@@ -134,6 +134,13 @@ const WeeklyView = ({
     }
   };
 
+  // deletes time ranges, but doesn't directly affect database
+    // this means after deleting a time range, the host will have to resubmit and get a fresh link i think
+  const handleDeleteRange = (index) => {
+    const updatedRanges = selectedRanges.filter((_, i) => i !== index);
+    setSelectedRanges(updatedRanges);
+  };  
+
   return (
     <div>
       <div className='weekly-view-container'>
@@ -145,7 +152,7 @@ const WeeklyView = ({
           Submit
         </button>
       </div>
-      <AvailabilityDisplay selectedRanges={selectedRanges} />
+      <AvailabilityDisplay selectedRanges={selectedRanges} onDelete={handleDeleteRange} />
     </div>
   );
 };
