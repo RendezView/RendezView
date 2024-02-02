@@ -1,4 +1,4 @@
-<p align="center"><img src="logo.png" width='200' style="margin-top: 10px; margin-bottom: 15px;"></p>
+<p align="center"><img src="/public/logo.png" width='200' style="margin-top: 10px; margin-bottom: 15px;"></p>
 
 Welcome to RendezView!
 
