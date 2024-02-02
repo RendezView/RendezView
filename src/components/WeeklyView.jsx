@@ -139,7 +139,17 @@ const WeeklyView = ({
   const handleDeleteRange = (index) => {
     const updatedRanges = selectedRanges.filter((_, i) => i !== index);
     setSelectedRanges(updatedRanges);
-  };  
+  };
+
+  // Check if userName is not set and display a warning
+    // Causes availability to not be transferred through unique link
+  // if (!userName || userName.trim().length === 0) {
+  //   return (
+  //     <div className="warning-message">
+  //       Please enter your name in the User Details section before selecting your availability.
+  //     </div>
+  //   );
+  // }
 
   return (
     <div>
