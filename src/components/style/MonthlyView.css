@@ -54,7 +54,7 @@
   }
 }
 
-.submitBtn {
+.monthly-view-button {
   margin-top: 20px;
   padding: 10px 20px;
   background-color: #9fd3c7;
@@ -66,8 +66,14 @@
   transition: 0.3s;
 }
 
-.submitBtn:hover {
+.monthly-view-button:hover {
   background-color: #385170;
   color: white;
   transform: scale(1.1);
+}
+
+.monthly-view-button:active {
+  transform: scale(1);
+  background-color: #2e4558;
+  transition: 0.1s;
 }

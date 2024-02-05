@@ -12,15 +12,17 @@ app.use(express.json());
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, '..', 'build')));
 
+// Updated favicon route
+app.get('/favicon.ico', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'build', 'favicon.ico'));
+});
+
 // API routes
 app.get('/api/availability/:link', eventController.getAvailabilityPage);
 // app.get('/availability/:eventUuid', eventController.getEventAvailability);
-app.post('/', eventController.addEvent);
-app.post('/api/availability/:eventUuid', eventController.addUserAvailability);
+app.post('/api/availability/:link', eventController.addUserAvailability);
+app.post('/api/newEvent', eventController.addEvent);
 
-app.get('/favicon.ico', (req, res) => {
-  res.status(204);
-});
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));

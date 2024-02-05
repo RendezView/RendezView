@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import './style/DisplayArea.css';
 
 const DisplayArea = ({ organizerName, meetingName, meetingDescription, meetingLocation, generatedLink }) => {
@@ -23,7 +24,8 @@ const DisplayArea = ({ organizerName, meetingName, meetingDescription, meetingLo
             </div>
             <div className="detail-row">
                 <strong>Link:</strong>
-                <a aria-label="link to invitee component" href={generatedLink}>{generatedLink}</a>
+                {/* <a aria-label="link to invitee component" href={generatedLink}>{generatedLink}</a> */}
+                <Link aria-label="link to invitee component" to="/availability">{generatedLink}</Link>
             </div>
         </div>
     );
