@@ -24,8 +24,8 @@ const DisplayArea = ({ organizerName, meetingName, meetingDescription, meetingLo
             </div>
             <div className="detail-row">
                 <strong>Link:</strong>
-                {/* <a aria-label="link to invitee component" href={generatedLink}>{generatedLink}</a> */}
-                <Link aria-label="link to invitee component" to="/availability">{generatedLink}</Link>
+                <a aria-label="link to invitee component" href={generatedLink}>{generatedLink}</a>
+                {/* <Link aria-label="link to invitee component" to="/availability">{generatedLink}</Link> */}
             </div>
         </div>
     );
