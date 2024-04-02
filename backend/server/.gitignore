@@ -153,3 +153,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+
+vercel.json
