@@ -1,28 +1,28 @@
 const uuid = require('uuid');
 const db = require('../models/eventModels');
 
-const findCommonTimeSlots = (eventDetails, userAvailabilities) => {
-  const eventTimeStart = parseInt(eventDetails.time_start.split(':')[0], 10);
-  const eventTimeEnd = parseInt(eventDetails.time_end.split(':')[0], 10);
+// const findCommonTimeSlots = (eventDetails, userAvailabilities) => {
+//   const eventTimeStart = parseInt(eventDetails.time_start.split(':')[0], 10);
+//   const eventTimeEnd = parseInt(eventDetails.time_end.split(':')[0], 10);
 
-  const userSlots = userAvailabilities.map((entry) => [
-    parseInt(entry.available_time_start.split(':')[0], 10),
-    parseInt(entry.available_time_end.split(':')[0], 10),
-  ]);
+//   const userSlots = userAvailabilities.map((entry) => [
+//     parseInt(entry.available_time_start.split(':')[0], 10),
+//     parseInt(entry.available_time_end.split(':')[0], 10),
+//   ]);
 
-  // Find the common time slot
-  const maxStart = Math.max(
-    eventTimeStart,
-    ...userSlots.map((slot) => slot[0])
-  );
-  const minEnd = Math.min(eventTimeEnd, ...userSlots.map((slot) => slot[1]));
+//   // Find the common time slot
+//   const maxStart = Math.max(
+//     eventTimeStart,
+//     ...userSlots.map((slot) => slot[0])
+//   );
+//   const minEnd = Math.min(eventTimeEnd, ...userSlots.map((slot) => slot[1]));
 
-  if (maxStart <= minEnd) {
-    return [maxStart, minEnd];
-  } else {
-    return [];
-  }
-};
+//   if (maxStart <= minEnd) {
+//     return [maxStart, minEnd];
+//   } else {
+//     return [];
+//   }
+// };
 
 const eventController = {};
 

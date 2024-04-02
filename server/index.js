@@ -10,12 +10,12 @@ app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 
 // static file-serving middleware
-app.use(express.static(path.join(__dirname, '..', 'build')));
+// app.use(express.static(path.join(__dirname, '..', 'build')));
 
 // Updated favicon route
-app.get('/favicon.ico', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'build', 'favicon.ico'));
-});
+// app.get('/favicon.ico', (req, res) => {
+//   res.sendFile(path.join(__dirname, '..', 'build', 'favicon.ico'));
+// });
 
 // API routes
 app.get('/api/availability/:link', eventController.getAvailabilityPage);
@@ -24,9 +24,9 @@ app.post('/api/availability/:link', eventController.addUserAvailability);
 app.post('/api/newEvent', eventController.addEvent);
 
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+// });
 
 // global error handler // does the router
 app.use((err, req, res, next) => {

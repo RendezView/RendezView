@@ -39,10 +39,10 @@ const colors = [
 
 const CustomUser = ({ userName, setUserName, userColor, setUserColor }) => {
 
-    const playSound = (color) => {
-        const sound = new Audio(colorSounds[color]);
-        sound.play();
-    };
+    // const playSound = (color) => {
+    //     const sound = new Audio(colorSounds[color]);
+    //     sound.play();
+    // };
 
     const handleColorClick = (color) => {
         setUserColor(color);
